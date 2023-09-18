@@ -8,6 +8,7 @@ import {
   updateBlog,
   getAllBlogByHashTag,
   get_BlogById,
+  getPopularBlog,
 } from "../controller/blog-controller/blogs";
 import {
   isAuthenticated,
@@ -26,6 +27,7 @@ export default (router: express.Router) => {
   //Interesting find, the :id will be called and will cause an error if hashtag route is below getBlogById.
   router.get("/blogs/hashtag", getAllBlogByHashTag);
   router.get("/blogs/category", getAllBlogByCategory);
+  router.get("/blogs/popular", getPopularBlog);
   router.get("/blogs/:id", isAuthenticated, get_BlogById);
 
   //query instead of path params

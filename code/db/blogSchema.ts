@@ -30,6 +30,9 @@ const BlogSchema = new mongoose.Schema({
   viewCount: {
     type: Number,
   },
+  recentAccess: {
+    type: [String],
+  },
 });
 
 export const BlogModel = mongoose.model("Blog", BlogSchema);

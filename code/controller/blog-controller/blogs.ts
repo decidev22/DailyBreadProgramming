@@ -37,6 +37,8 @@ export const createNewBlog = async (
 
     const now = new Date();
     const date = now.toISOString();
+    const viewCount = 0;
+    const recentAccess = [""];
 
     const newBlog = await createBlog({
       title,
@@ -46,6 +48,8 @@ export const createNewBlog = async (
       date,
       category,
       hashTag,
+      viewCount,
+      recentAccess,
     });
 
     // get user blog histroy
@@ -72,12 +76,29 @@ export const createNewBlog = async (
   }
 };
 
+// This function will be used to show the list of blogs.
+// To-Do: make it return in DESC order in time so it shows most recent ones first.
 export const getBlog = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
     const blogs = await getAllBlogs();
+    const now = new Date();
+    const date = now.toISOString();
+
+    // This block was used to initialise viewCount property on blogs created before viewCount
+    for (let i = 0; i < blogs.length; i++) {
+      if (!blogs[i].viewCount) {
+        blogs[i].viewCount = 0;
+        blogs[i].save();
+      }
+      // This block was used to initialise recentAccess
+      if (!blogs[i].recentAccess) {
+        blogs[i].recentAccess = [""];
+      }
+    }
+
     return res.status(200).json(blogs);
   } catch (error) {
     console.log(error);
@@ -85,6 +106,27 @@ export const getBlog = async (
   }
 };
 
+export const getPopularBlog = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const blogs = await getAllBlogs();
+    // Select Top 5 blogs
+    const popularBlogs = blogs.sort(
+      (a, b) => a.viewCount - b.viewCount
+    );
+    // Saves top 5 blogs in lower view to highest view order.
+    const topFiveBlogs = popularBlogs.slice(-5);
+    return res.status(200).json(topFiveBlogs);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+// This controller function will be used to load up the blog when clicked on individually from the list of blogs.
+// Therefore it will also add +1 view to the blog.
 export const get_BlogById = async (
   req: express.Request,
   res: express.Response
@@ -92,6 +134,30 @@ export const get_BlogById = async (
   try {
     const { id } = req.params;
     const blogs = await getBlogById(id);
+
+    // checks if there is a viewCount property, if not initialise it.
+    if (blogs.viewCount) {
+      blogs.viewCount += 1;
+    } else {
+      blogs.viewCount = 1;
+    }
+
+    // add recentAccess
+    const now = new Date();
+    const date = now.toISOString();
+    if (blogs.recentAccess && blogs.recentAccess.length < 10) {
+      blogs.recentAccess.push(`${date}`);
+    }
+    // removes first in time entry by shift()
+    if (blogs.recentAccess && blogs.recentAccess.length === 10) {
+      blogs.recentAccess.shift();
+      blogs.recentAccess.push(`${date}`);
+    }
+    if (!blogs.recentAccess) {
+      blogs.recentAccess = [`${date}`];
+    }
+
+    blogs.save();
     return res.status(200).json(blogs);
   } catch (error) {
     console.log(error);
@@ -148,7 +214,6 @@ export const updateBlog = async (
     }
 
     merge(blog, input);
-
     await blog.save();
 
     return res.status(200).json(blog).end();
@@ -177,4 +242,19 @@ export const getAllBlogByHashTag = async (
     console.log(error);
     return res.sendStatus(400);
   }
+};
+
+// isTrending
+// A record of blog trend should have up to 10 recently accessed date time
+// blog.recentAccess = [timestring, timestirng, timestring...]
+// calculate time difference between each access
+// the lowest median time for access frequency ranks top.
+// get top 5 trending
+
+export const isTrending = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+  } catch (Error) {}
 };

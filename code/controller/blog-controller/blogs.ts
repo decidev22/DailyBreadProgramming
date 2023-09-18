@@ -243,18 +243,3 @@ export const getAllBlogByHashTag = async (
     return res.sendStatus(400);
   }
 };
-
-// isTrending
-// A record of blog trend should have up to 10 recently accessed date time
-// blog.recentAccess = [timestring, timestirng, timestring...]
-// calculate time difference between each access
-// the lowest median time for access frequency ranks top.
-// get top 5 trending
-
-export const isTrending = async (
-  req: express.Request,
-  res: express.Response
-) => {
-  try {
-  } catch (Error) {}
-};

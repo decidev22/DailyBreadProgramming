@@ -33,6 +33,9 @@ const BlogSchema = new mongoose.Schema({
   recentAccess: {
     type: [String],
   },
+  lastTrendingTime: {
+    type: Date,
+  },
 });
 
 export const BlogModel = mongoose.model("Blog", BlogSchema);

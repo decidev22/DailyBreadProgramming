@@ -9,6 +9,7 @@ import {
   getAllBlogByHashTag,
   get_BlogById,
   getPopularBlog,
+  addFavoriteBlog,
 } from "../controller/blog-controller/blogs";
 import {
   isAuthenticated,
@@ -23,6 +24,7 @@ export default (router: express.Router) => {
     isNotSpam,
     createNewBlog
   );
+  router.post("/blogs/favorite/:id", addFavoriteBlog);
   router.get("/blogs", getBlog);
   //Interesting find, the :id will be called and will cause an error if hashtag route is below getBlogById.
   router.get("/blogs/hashtag", getAllBlogByHashTag);

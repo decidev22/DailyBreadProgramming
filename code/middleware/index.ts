@@ -153,3 +153,13 @@ export const isAdmin = async (
   }
   next();
 };
+
+// // Blog isTrending
+
+// export const isTrending = async (
+//   req: express.Request,
+//   res: express.Response,
+//   next: express.NextFunction
+// ) => {
+
+// };

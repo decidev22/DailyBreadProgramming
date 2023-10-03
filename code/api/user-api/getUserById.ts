@@ -4,6 +4,5 @@ import { UserModel } from "../../db/userSchema";
 // What is a potential flaw by doing this?
 // Any better way to hnadle?
 
-export const getUserById = async (id: string) => {
-  return await UserModel.findOne({ _id: id });
-};
+export const getUserById = (id: string) =>
+  UserModel.findOne({ _id: id });

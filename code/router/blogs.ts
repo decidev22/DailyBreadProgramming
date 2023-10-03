@@ -1,16 +1,29 @@
 import express from "express";
 
+// import {
+//   createNewBlog,
+//   deleteBlog,
+//   getBlog,
+//   getAllBlogByCategory,
+//   updateBlog,
+//   getAllBlogByHashTag,
+//   get_BlogById,
+//   getPopularBlog,
+//   addFavoriteBlog,
+// } from "../controller/blog-controller/blogs";
+
 import {
   createNewBlog,
+  addFavoriteBlog,
   deleteBlog,
   getBlog,
   getAllBlogByCategory,
-  updateBlog,
   getAllBlogByHashTag,
   get_BlogById,
   getPopularBlog,
-  addFavoriteBlog,
-} from "../controller/blog-controller/blogs";
+  updateBlog,
+} from "../controller/blog-controller/index";
+
 import {
   isAuthenticated,
   isBlogOwner,

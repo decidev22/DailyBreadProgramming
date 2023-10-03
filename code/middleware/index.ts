@@ -94,11 +94,13 @@ export const isNotSpam = async (
       console.log("User not found or blog history not initialised");
       return res.sendStatus(403);
     }
+
     const blogs = existingUser.blogHistory.blogids;
     if (!blogs || blogs.length === 0) {
       console.log("No blog history found");
       return next(); // or some other logic you want to implement when there is no blog history
     }
+
     // get last blog post time
     const lastPostedBlog = await getBlogById(blogs[blogs.length - 1]);
     const lastPostedTime = new Date(lastPostedBlog.date);

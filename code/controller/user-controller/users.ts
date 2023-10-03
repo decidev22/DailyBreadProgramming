@@ -4,10 +4,12 @@ import { getUsers } from "../../api/user-api/getAllUsers";
 import { deleteUserById } from "../../api/user-api/deleteUserById";
 import { getUserById } from "../../api/user-api/getUserById";
 import { getUserByEmail } from "../../api/user-api/getUserByEmail";
+import { updateUserById } from "../../api/user-api/updateUserById";
 import {
   Role,
   updateUserRole,
 } from "../../api/user-api/updateUserRole";
+import { merge, mergeWith } from "lodash";
 
 export const getAllUsers = async (
   req: express.Request,
@@ -73,26 +75,39 @@ export const updateUser = async (
     const { id } = req.params;
     const input = req.body;
 
-    const user = await getUserById(id);
+    let user = await getUserById(id);
 
-    if (!input.username) {
-      user.username = user.username;
-    } else {
-      user.username = input.username;
-    }
-    if (!input.profileTitle) {
-      user.profileTitle = user.profileTitle;
-    } else {
-      user.profileTitle = input.profileTitle;
-    }
-    // Temporary Admin update
-    // if (input.role) {
-    //   user.role = input.role;
-    // }
-    // merge (user, input)
-    //class-validator npm lib for body para
+    type UserPropertyType =
+      | "blogHistory"
+      | "favoriteBlog"
+      | "popularBlogsWritten"
+      | "_id"
+      | "username"
+      | "email";
 
-    await user.save();
+    const isUserProperty = (key: string): key is UserPropertyType => {
+      return [
+        "blogHistory",
+        "favoriteBlog",
+        "popularBlogsWritten",
+        "_id",
+        "username",
+        "email",
+      ].includes(key);
+    };
+
+    for (let property in input) {
+      if (isUserProperty(property)) {
+        // Now TypeScript knows that `property` is of type `UserPropertyType`,
+        // bracket notation can safely access the user's property by doing this.
+        // not by doing user.property <- this, typescript will not understand.
+        user[property] = input[property];
+      }
+    }
+
+    // Update user in the database
+    await updateUserById(id, user);
+    user.save();
 
     return res.status(200).json(user).end();
   } catch (error) {

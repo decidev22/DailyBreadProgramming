@@ -149,11 +149,18 @@ export const get_BlogById = async (
       blogs.viewCount = 1;
     }
 
-    // >> isTrending Part
+    // >> isTrending Part  - utils - helper for controller
     // add new time to recentAccess
+
+    // From Rosette
+    // Utils/const.ts      make this file
+    // // const.ts and inside...
+    // const ACCESS_TOKEN_TIME = 10; have constants
+
     const now = new Date();
     const date = now.toISOString();
     if (blogs.recentAccess && blogs.recentAccess.length < 10) {
+      //const file in utils
       blogs.recentAccess.push(`${date}`);
     }
     // removes 'first in' - oldest time entry by shift()

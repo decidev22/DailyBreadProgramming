@@ -9,7 +9,6 @@ import {
   Role,
   updateUserRole,
 } from "../../api/user-api/updateUserRole";
-import { merge, mergeWith } from "lodash";
 
 export const getAllUsers = async (
   req: express.Request,

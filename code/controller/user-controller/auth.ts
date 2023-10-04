@@ -37,8 +37,6 @@ export const register = async (
       },
       role,
     });
-    console.log("new user created");
-    console.log(newUser);
     return res.status(200).json(newUser).end();
   } catch (error) {
     console.log(error);

@@ -17,6 +17,9 @@ const BlogSchema = new mongoose.Schema({
   date: {
     type: Date,
   },
+  lastEdited: {
+    type: Date,
+  },
   content: {
     type: String,
     required: true,
@@ -29,6 +32,12 @@ const BlogSchema = new mongoose.Schema({
   },
   viewCount: {
     type: Number,
+  },
+  recentAccess: {
+    type: [String],
+  },
+  lastTrendingTime: {
+    type: Date,
   },
 });
 

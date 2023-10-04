@@ -1,14 +1,29 @@
 import express from "express";
 
+// import {
+//   createNewBlog,
+//   deleteBlog,
+//   getBlog,
+//   getAllBlogByCategory,
+//   updateBlog,
+//   getAllBlogByHashTag,
+//   get_BlogById,
+//   getPopularBlog,
+//   addFavoriteBlog,
+// } from "../controller/blog-controller/blogs";
+
 import {
   createNewBlog,
+  addFavoriteBlog,
   deleteBlog,
   getBlog,
   getAllBlogByCategory,
-  updateBlog,
   getAllBlogByHashTag,
   get_BlogById,
-} from "../controller/blog-controller/blogs";
+  getPopularBlog,
+  updateBlog,
+} from "../controller/blog-controller/index";
+
 import {
   isAuthenticated,
   isBlogOwner,
@@ -22,10 +37,12 @@ export default (router: express.Router) => {
     isNotSpam,
     createNewBlog
   );
+  router.post("/blogs/favorite/:id", addFavoriteBlog);
   router.get("/blogs", getBlog);
   //Interesting find, the :id will be called and will cause an error if hashtag route is below getBlogById.
   router.get("/blogs/hashtag", getAllBlogByHashTag);
   router.get("/blogs/category", getAllBlogByCategory);
+  router.get("/blogs/popular", getPopularBlog);
   router.get("/blogs/:id", isAuthenticated, get_BlogById);
 
   //query instead of path params

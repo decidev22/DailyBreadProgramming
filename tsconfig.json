@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "node",
-        "baseUrl": "code",
-        "outDir": "dist",
-        "sourceMap": true,
-        "noImplicitAny": true,
-    },
-    "include": ["code/**/*"]
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "code",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true
+  },
+  "include": ["code/**/*"]
 }

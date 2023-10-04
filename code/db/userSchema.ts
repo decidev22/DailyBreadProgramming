@@ -26,7 +26,10 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
   },
-  favortieBlog: {
+  favoriteBlog: {
+    blogids: [String],
+  },
+  popularBlogsWritten: {
     blogids: [String],
   },
 });

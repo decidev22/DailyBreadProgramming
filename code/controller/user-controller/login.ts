@@ -30,6 +30,8 @@ export const login = async (
     }
 
     const salt = random();
+
+    // update sessionToken
     user.authentication.sessionToken = authentication(
       salt,
       user._id.toString()

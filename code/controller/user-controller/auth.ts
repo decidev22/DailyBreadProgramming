@@ -12,14 +12,16 @@ export const register = async (
   try {
     const { email, password, username } = req.body;
 
+    // check if input body has all the necessary arguments
     if (!email || !password || !username) {
-      console.log("email, password, username NOT passwed correctly");
+      console.log(
+        "Error. One or more of email, password, username is/are NOT passed correctly."
+      );
       return res.sendStatus(400);
     }
-    console.log("email, password, username passwed correctly");
 
+    // check if there is an existing user by the email input
     const existingUser = await getUserByEmail(email);
-
     if (existingUser) {
       console.log("Existing User");
       console.log(existingUser);
@@ -37,8 +39,6 @@ export const register = async (
       },
       role,
     });
-    console.log("new user created");
-    console.log(newUser);
     return res.status(200).json(newUser).end();
   } catch (error) {
     console.log(error);

@@ -5,13 +5,15 @@ import {
   updateUser,
   get_UserByEmail,
   updateUserRoleTo,
-} from "../controller/user-controller/users";
+  get_UserById,
+} from "../controller/user-controller/index";
 import { isAdmin, isAuthenticated, isOwner } from "../middleware";
 
 export default (router: express.Router) => {
   // endpoint , middleware, route handler function
-  router.get("/users", isAuthenticated, getAllUsers);
+  router.get("/users/:id", get_UserById);
   router.get("/users/email/:email", isAuthenticated, get_UserByEmail);
+  router.get("/users", isAuthenticated, getAllUsers);
   router.delete("/users/:id", isAuthenticated, isOwner, deleteUser);
   router.put("/users/:id", isAuthenticated, isOwner, updateUser);
   router.put(
@@ -20,5 +22,4 @@ export default (router: express.Router) => {
     isAdmin,
     updateUserRoleTo
   );
-  //put instaed of patch.
 };

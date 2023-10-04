@@ -2,7 +2,21 @@ import { getBlogTrendById } from "../../../api/trending-api/getBlogTrendById";
 import { getUserById } from "../../../api/user-api/getUserById";
 import { newBlogTrend } from "../../../api/trending-api/newBlogTrend";
 
-export const isTrending = async (blogs: any, id: string) => {
+type BlogType = {
+  title: string;
+  content: string;
+  hashTag: string[];
+  category: string[];
+  recentAccess: string[];
+  date?: Date;
+  username?: string;
+  bid?: string;
+  userId?: string;
+  viewCount?: number;
+  lastTrendingTime?: Date;
+};
+
+export const isTrending = async (blogs: BlogType, id: string) => {
   // From Rosette
   // Utils/const.ts      make this file
   // // const.ts and inside...

@@ -6,9 +6,7 @@ export const getAllBlogByHashTag = async (
   res: express.Response
 ) => {
   try {
-    // const { hashTag } = req.params;
     const hashTag = req.query.hashTag as string;
-    // console.log("query HT", hashTag);
     if (!hashTag) {
       return res
         .status(400)

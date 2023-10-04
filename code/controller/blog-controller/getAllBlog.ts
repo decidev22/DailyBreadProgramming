@@ -9,8 +9,6 @@ export const getBlog = async (
 ) => {
   try {
     const blogs = await getAllBlogs();
-    const now = new Date();
-    const date = now.toISOString();
 
     // This block was used to initialise viewCount property on blogs created before viewCount
     for (let i = 0; i < blogs.length; i++) {
@@ -18,10 +16,12 @@ export const getBlog = async (
         blogs[i].viewCount = 0;
         blogs[i].save();
       }
+
       // This block was used to initialise recentAccess
       if (!blogs[i].recentAccess) {
         blogs[i].recentAccess = [""];
       }
+
       // gives the lastTrendingTime value of 1970-01-01 and this only refers that there has not been a trending in this blog.
       // if (!blogs[i].lastTrendingTime) {
       //   blogs[i].lastTrendingTime = new Date(0);

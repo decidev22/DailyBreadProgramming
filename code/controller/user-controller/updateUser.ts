@@ -10,6 +10,11 @@ export const updateUser = async (
     const { id } = req.params;
     const input = req.body;
 
+    if (!input) {
+      console.log("Error. Ther is no items provided to update user.");
+      res.sendStatus(400);
+    }
+
     let user = await getUserById(id);
 
     type UserPropertyType =

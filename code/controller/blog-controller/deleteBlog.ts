@@ -12,7 +12,6 @@ export const deleteBlog = async (
 
     // Also remove it from user's blog record
     const sessionToken = req.cookies[process.env.CRYPTO_SECRET];
-
     if (!sessionToken) {
       return res.sendStatus(403);
     }
@@ -32,6 +31,7 @@ export const deleteBlog = async (
       currentUser.blogHistory.blogids.splice(indexOfblogId, 1);
     }
 
+    // save the user
     currentUser.save();
     return res.json(deletedBlog);
   } catch (error) {

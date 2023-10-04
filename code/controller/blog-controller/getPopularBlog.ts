@@ -1,5 +1,6 @@
 import express from "express";
 import { getAllBlogs } from "../../api/blog-api/services/getAllBlogs";
+import { top_N_Blogs } from "./utils/constants";
 
 export const getPopularBlog = async (
   req: express.Request,
@@ -12,8 +13,8 @@ export const getPopularBlog = async (
       (a, b) => a.viewCount - b.viewCount
     );
     // Saves top 5 blogs in lower view to highest view order.
-    const topFiveBlogs = popularBlogs.slice(-5);
-    return res.status(200).json(topFiveBlogs);
+    const topBlogs = popularBlogs.slice(-top_N_Blogs);
+    return res.status(200).json(topBlogs);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

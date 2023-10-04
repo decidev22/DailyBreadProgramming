@@ -14,12 +14,14 @@ export const createNewBlog = async (
     return res.sendStatus(400);
   }
   try {
+    // Check current user's session token
     const sessionToken = req.cookies[process.env.CRYPTO_SECRET];
 
     if (!sessionToken) {
       return res.sendStatus(403);
     }
 
+    // Check existing user by session token
     const existingUser = await getUserBySessionToken(sessionToken);
     if (!existingUser) {
       return res.sendStatus(403);
@@ -33,6 +35,7 @@ export const createNewBlog = async (
     const viewCount = 0;
     const recentAccess = [""];
 
+    // new blog properties
     const newBlog = await createBlog({
       title,
       content,
@@ -45,7 +48,7 @@ export const createNewBlog = async (
       recentAccess,
     });
 
-    // get user blog histroy
+    // get author's' blog histroy
     const userBlogHistory = existingUser.blogHistory.blogids || [];
 
     userBlogHistory.push(`${newBlog._id}`);

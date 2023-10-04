@@ -22,6 +22,12 @@ export const getBlog = async (
         blogs[i].recentAccess = [""];
       }
 
+      // This block adds in lastEdited if not there
+      if (!blogs[i].lastEdited) {
+        const now = new Date();
+        blogs[i].lastEdited = now;
+      }
+
       // gives the lastTrendingTime value of 1970-01-01 and this only refers that there has not been a trending in this blog.
       // if (!blogs[i].lastTrendingTime) {
       //   blogs[i].lastTrendingTime = new Date(0);

@@ -34,6 +34,7 @@ export const createNewBlog = async (
     const date = now.toISOString();
     const viewCount = 0;
     const recentAccess = [""];
+    const lastEdited = now;
 
     // new blog properties
     const newBlog = await createBlog({
@@ -46,6 +47,7 @@ export const createNewBlog = async (
       hashTag,
       viewCount,
       recentAccess,
+      lastEdited,
     });
 
     // get author's' blog histroy

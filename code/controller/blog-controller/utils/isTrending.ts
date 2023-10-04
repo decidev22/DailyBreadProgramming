@@ -24,6 +24,18 @@ export const isTrending = async (blogs: BlogType, id: string) => {
 
   const now = new Date();
   const date = now.toISOString();
+
+  // clean the access record if there are any empty date
+  for (let item in blogs.recentAccess) {
+    if (item == " ") {
+      const indexOfEmptyItem = blogs.recentAccess.indexOf(item);
+      console.log(indexOfEmptyItem);
+      if (indexOfEmptyItem !== -1) {
+        blogs.recentAccess.splice(indexOfEmptyItem, 1);
+      }
+    }
+  }
+
   if (blogs.recentAccess && blogs.recentAccess.length < 10) {
     //const file in utils
     blogs.recentAccess.push(`${date}`);

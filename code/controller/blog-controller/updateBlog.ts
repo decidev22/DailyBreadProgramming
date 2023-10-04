@@ -36,6 +36,9 @@ export const updateBlog = async (
       }
     }
 
+    const now = new Date();
+    blog.lastEdited = now;
+
     await updateBlogById(id, blog);
     await blog.save();
 

@@ -6,7 +6,7 @@ import {
   get_UserByEmail,
   updateUserRoleTo,
   get_UserById,
-} from "../controller/user-controller/users";
+} from "../controller/user-controller/index";
 import { isAdmin, isAuthenticated, isOwner } from "../middleware";
 
 export default (router: express.Router) => {

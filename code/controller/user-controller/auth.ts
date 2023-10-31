@@ -20,6 +20,14 @@ export const register = async (
       return res.sendStatus(400);
     }
 
+    // check if email is in the right format
+    const pattern_typeEmail =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email.match(pattern_typeEmail)) {
+      console.log("Invalid Email Format");
+      return res.sendStatus(400);
+    }
+
     // check if there is an existing user by the email input
     const existingUser = await getUserByEmail(email);
     if (existingUser) {

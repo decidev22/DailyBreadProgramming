@@ -8,11 +8,12 @@ export const getAllUsers = async (
   try {
     const users = await getUsers();
 
-    for (let i = 0; i < users.length; i++) {
-      if (!users[i].viewedBlogHistory) {
-        users[i].viewedBlogHistory.blogids = [];
-      }
-    }
+    // This section of the code was used to initialise viewBlogHistory
+    // for (let i = 0; i < users.length; i++) {
+    //   if (!users[i].viewedBlogHistory) {
+    //     users[i].viewedBlogHistory.blogids = [];
+    //   }
+    // }
 
     return res.status(200).json(users);
   } catch (error) {

@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema({
   blogHistory: {
     blogids: [String],
   },
+  viewedBlogHistory: {
+    blogids: [String],
+  },
   role: {
     type: String,
   },

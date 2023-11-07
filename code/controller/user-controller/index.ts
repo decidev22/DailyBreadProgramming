@@ -6,6 +6,7 @@ import { get_UserByEmail } from "./getUserByEmail";
 import { get_UserById } from "./getUserById";
 import { updateUser } from "./updateUser";
 import { updateUserRoleTo } from "./updateUserRoleTo";
+import { verifyUser } from "./verifyUser";
 
 export {
   register,
@@ -16,4 +17,5 @@ export {
   get_UserById,
   updateUser,
   updateUserRoleTo,
+  verifyUser,
 };

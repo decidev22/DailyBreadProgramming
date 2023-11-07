@@ -12,6 +12,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  verification: {
+    randomSeed: String,
+    verified: Boolean,
+    failCount: Number,
+  },
   authentication: {
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },

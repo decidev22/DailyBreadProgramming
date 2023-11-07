@@ -151,7 +151,7 @@ export const isAdmin = async (
     return res.sendStatus(403);
   }
   if (existingUser.role != "Admin") {
-    return res.sendStatus(400).send("User not Admin");
+    return res.status(400).send("User not Admin");
   }
   next();
 };
@@ -165,3 +165,40 @@ export const isAdmin = async (
 // ) => {
 
 // };
+
+export const isVerified = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  // get current user
+  const sessionToken = req.cookies[process.env.CRYPTO_SECRET];
+  if (!sessionToken) {
+    return res.sendStatus(403);
+  }
+  const existingUser = await getUserBySessionToken(sessionToken);
+  const verificayionCode = req.params.code as string;
+  console.log("Code provided by user", verificayionCode);
+  console.log("Code on System", existingUser.verification.randomSeed);
+
+  if (verificayionCode == existingUser.verification.randomSeed) {
+    console.log("Verification Successful");
+    existingUser.verification.verified = true;
+    existingUser.verification.failCount = 0;
+    existingUser.save();
+    next();
+  } else {
+    // if user gets code wrong 3 times, reset the fail count and recreate the code.
+    if (existingUser.verification.failCount > 3) {
+      existingUser.verification.randomSeed = Math.floor(
+        Math.random() * (999999 - 100000) + 1
+      ).toString();
+      existingUser.verification.failCount = 0;
+    } else {
+      existingUser.verification.failCount += 1;
+    }
+    existingUser.verification.verified = false;
+    await existingUser.save();
+    return res.status(400).send("Wrong verificaiton code entered.");
+  }
+};

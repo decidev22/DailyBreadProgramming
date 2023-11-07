@@ -7,7 +7,12 @@ import {
   updateUserRoleTo,
   get_UserById,
 } from "../controller/user-controller/index";
-import { isAdmin, isAuthenticated, isOwner } from "../middleware";
+import {
+  isAdmin,
+  isAuthenticated,
+  isOwner,
+  isVerified,
+} from "../middleware";
 
 export default (router: express.Router) => {
   // endpoint , middleware, route handler function
@@ -21,5 +26,12 @@ export default (router: express.Router) => {
     isAuthenticated,
     isAdmin,
     updateUserRoleTo
+  );
+  router.put(
+    "/users/:id/:code",
+    isAuthenticated,
+    isOwner,
+    isVerified,
+    updateUser
   );
 };

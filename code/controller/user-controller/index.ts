@@ -7,6 +7,7 @@ import { get_UserById } from "./getUserById";
 import { updateUser } from "./updateUser";
 import { updateUserRoleToAdmin } from "./updateUserRoleToAdmin";
 import { verifyUser } from "./verifyUser";
+import { resetVerificationById } from "./resetVerificationById";
 
 export {
   register,
@@ -18,4 +19,5 @@ export {
   updateUser,
   updateUserRoleToAdmin,
   verifyUser,
+  resetVerificationById,
 };

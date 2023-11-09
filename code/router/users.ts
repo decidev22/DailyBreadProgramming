@@ -6,6 +6,7 @@ import {
   get_UserByEmail,
   updateUserRoleToAdmin,
   get_UserById,
+  resetVerificationById,
 } from "../controller/user-controller/index";
 import {
   isAdmin,
@@ -21,6 +22,12 @@ export default (router: express.Router) => {
   router.get("/users", isAuthenticated, getAllUsers);
   router.delete("/users/:id", isAuthenticated, isOwner, deleteUser);
   router.put("/users/:id", isAuthenticated, isOwner, updateUser);
+  router.put(
+    "/users/:id/verification/reset",
+    isAuthenticated,
+    isOwner,
+    resetVerificationById
+  );
   router.put(
     "/users/role/admin/:id",
     isAuthenticated,

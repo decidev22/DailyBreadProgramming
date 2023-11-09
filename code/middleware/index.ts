@@ -168,6 +168,7 @@ export const isVerified = async (
   }
   const existingUser = await getUserBySessionToken(sessionToken);
   const verificayionCode = req.params.code as string;
+  const now = new Date().toISOString();
 
   if (verificayionCode == existingUser.verification.randomSeed) {
     console.log("Verification Successful");
@@ -179,6 +180,9 @@ export const isVerified = async (
     existingUser.verification.randomSeed = Math.floor(
       Math.random() * (999999 - 100000) + 1
     ).toString();
+    existingUser.verification.timestamp.push(
+      "Successful Verification on: " + now
+    );
     existingUser.save();
 
     next();
@@ -193,6 +197,9 @@ export const isVerified = async (
       existingUser.verification.failCount += 1;
     }
     existingUser.verification.verified = false;
+    existingUser.verification.timestamp.push(
+      "Failed Verification attempt on: " + now
+    );
     await existingUser.save();
     return res.status(400).send("Wrong verificaiton code entered.");
   }

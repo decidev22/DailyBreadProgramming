@@ -1,7 +1,7 @@
 import express from "express";
 import { getUserBySessionToken } from "./getUserBySessionToken";
 
-export const getCurrentUser = async (
+export const getCurrentUserId = async (
   req: express.Request,
   res: express.Response
 ) => {
@@ -10,6 +10,7 @@ export const getCurrentUser = async (
   if (!sessionToken) {
     return res.sendStatus(403);
   }
-
-  return await getUserBySessionToken(sessionToken);
+  const user = await getUserBySessionToken(sessionToken);
+  const userId = user.id;
+  return userId;
 };

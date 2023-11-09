@@ -1,5 +1,5 @@
-import { UserModel } from "../../db/userSchema";
-import { getUserById } from "./getUserById";
+import { UserModel } from "../../../db/userSchema";
+import { getUserById } from "../../user-api/getUserById";
 
 export const getBlogsByUserId = async (id: string) => {
   // check if user exists

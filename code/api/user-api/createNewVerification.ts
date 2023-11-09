@@ -17,6 +17,7 @@ type existingUser<Document> = {
 export const createNewVerification = (
   user: existingUser<Document>
 ) => {
+  // 6 digit random number from 100000 to 999999
   const random_seed = Math.floor(
     Math.random() * (999999 - 100000) + 1
   );

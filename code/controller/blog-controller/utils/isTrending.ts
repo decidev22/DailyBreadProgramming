@@ -17,11 +17,6 @@ type BlogType = {
 };
 
 export const isTrending = async (blogs: BlogType, id: string) => {
-  // From Rosette
-  // Utils/const.ts      make this file
-  // // const.ts and inside...
-  // const ACCESS_TOKEN_TIME = 10; have constants
-
   const now = new Date();
   const date = now.toISOString();
 
@@ -40,7 +35,7 @@ export const isTrending = async (blogs: BlogType, id: string) => {
     //const file in utils
     blogs.recentAccess.push(`${date}`);
   }
-  // removes 'first in' - oldest time entry by shift()
+  // removes 'first in' - which is the oldest time entry - by shift()
   if (blogs.recentAccess && blogs.recentAccess.length === 10) {
     blogs.recentAccess.shift();
     blogs.recentAccess.push(`${date}`);
@@ -52,15 +47,15 @@ export const isTrending = async (blogs: BlogType, id: string) => {
   // gets how far the latest access of the blog is to the oldest in the array
   const latestAccess = new Date(blogs.recentAccess[9]);
   const oldestAccess = new Date(blogs.recentAccess[0]);
-
   const hourDifference =
     (latestAccess.getTime() - oldestAccess.getTime()) /
     (1000 * 60 * 60);
 
+  // if the difference by hours is within a day (24 hrs)
   if (hourDifference < 24) {
-    // console.log(hourDifference);
-    // console.log("This blog is fire");
+    // add recod to blog.lastTrendingTime
     blogs.lastTrendingTime = now;
+    // add record to author's user detail
     const author = await getUserById(blogs.userId);
     if (!author.popularBlogsWritten.blogids.includes(id)) {
       author.popularBlogsWritten.blogids.push(id);
@@ -74,7 +69,6 @@ export const isTrending = async (blogs: BlogType, id: string) => {
       } else {
         //check if the last trend date was more than 1 week ago.
         const now = new Date().getTime();
-        // console.log("Blog Trend", blogTrend[0].time);
         const lastTrendedingTime = new Date(
           blogTrend[0].time
         ).getTime();
@@ -90,7 +84,8 @@ export const isTrending = async (blogs: BlogType, id: string) => {
             blogTrend[0].repeat = 1;
           }
         } else {
-          console.log("The dates are less than one week apart");
+          // no action taken
+          console.log("The view dates are less than one week apart");
         }
       }
     } catch (error) {

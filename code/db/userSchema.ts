@@ -30,7 +30,12 @@ const UserSchema = new mongoose.Schema({
     blogids: [String],
   },
   viewedBlogHistory: {
-    blogids: [String],
+    record: [
+      {
+        id: String,
+        time: String,
+      },
+    ],
   },
   role: {
     type: String,

@@ -50,22 +50,13 @@ export const createNewBlog = async (
       lastEdited,
     });
 
-    // get author's' blog histroy
+    // get author's blog histroy and enter it to author's blog history
     const userBlogHistory = existingUser.blogHistory.blogids || [];
-
     userBlogHistory.push(`${newBlog._id}`);
 
     await updateUserById(existingUser.id, {
       blogHistory: { blogids: userBlogHistory },
     });
-
-    // This function is commented out :: only addes in one blog log and overwrites.
-    // await updateUserById(
-    //   existingUser.id,
-    //   merge(existingUser.blogHistory, {
-    //     blogHistory: { blogids: `${newBlog._id}` },
-    //   })
-    // );
 
     return res.status(200).json(newBlog).end();
   } catch (error) {

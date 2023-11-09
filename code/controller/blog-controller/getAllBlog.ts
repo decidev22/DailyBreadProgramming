@@ -8,31 +8,7 @@ export const getBlog = async (
   res: express.Response
 ) => {
   try {
-    const blogs = await getAllBlogs();
-
-    // This block was used to initialise viewCount property on blogs created before viewCount
-    for (let i = 0; i < blogs.length; i++) {
-      if (!blogs[i].viewCount) {
-        blogs[i].viewCount = 0;
-        blogs[i].save();
-      }
-
-      // This block was used to initialise recentAccess
-      if (!blogs[i].recentAccess) {
-        blogs[i].recentAccess = [""];
-      }
-
-      // This block adds in lastEdited if not there
-      if (!blogs[i].lastEdited) {
-        const now = new Date();
-        blogs[i].lastEdited = now;
-      }
-
-      // gives the lastTrendingTime value of 1970-01-01 and this only refers that there has not been a trending in this blog.
-      // if (!blogs[i].lastTrendingTime) {
-      //   blogs[i].lastTrendingTime = new Date(0);
-      // }
-    }
+    const blogs = await getAllBlogs("DESC");
 
     return res.status(200).json(blogs);
   } catch (error) {

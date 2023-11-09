@@ -1,14 +1,12 @@
 import express from "express";
 import { getUserBySessionToken } from "../../api/user-api/getUserBySessionToken";
 
-// new route /favorite
+// on frontend side- favorite button clicked, then run.
 export const addFavoriteBlog = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    // on blog, click a button and run the route
-
     // gets the blog id from current blog, assume it is passed as param
     const { id } = req.params;
 

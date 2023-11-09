@@ -7,6 +7,7 @@ import { getAllBlogByHashTag } from "./getAllBlogByHashTag";
 import { get_BlogById } from "./getBlogById";
 import { getPopularBlog } from "./getPopularBlog";
 import { updateBlog } from "./updateBlog";
+import { getAllBlogsByUserId } from "./getAllBlogsByUserId";
 
 export {
   createNewBlog,
@@ -18,4 +19,5 @@ export {
   get_BlogById,
   getPopularBlog,
   updateBlog,
+  getAllBlogsByUserId,
 };

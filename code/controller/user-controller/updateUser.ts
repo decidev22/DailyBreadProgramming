@@ -17,22 +17,23 @@ export const updateUser = async (
 
     let user = await getUserById(id);
 
+    // Only these types can be chaned with Update
     type UserPropertyType =
       | "blogHistory"
       | "favoriteBlog"
       | "popularBlogsWritten"
-      | "_id"
       | "username"
-      | "email";
+      | "email"
+      | "verification";
 
     const isUserProperty = (key: string): key is UserPropertyType => {
       return [
         "blogHistory",
         "favoriteBlog",
         "popularBlogsWritten",
-        "_id",
         "username",
         "email",
+        "verification",
       ].includes(key);
     };
 

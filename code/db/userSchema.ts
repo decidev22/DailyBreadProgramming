@@ -12,6 +12,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  verification: {
+    randomSeed: String,
+    verified: Boolean,
+    failCount: Number,
+    timestamp: [String],
+  },
   authentication: {
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },
@@ -21,6 +27,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   blogHistory: {
+    blogids: [String],
+  },
+  viewedBlogHistory: {
     blogids: [String],
   },
   role: {

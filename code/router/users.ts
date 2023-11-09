@@ -4,10 +4,15 @@ import {
   deleteUser,
   updateUser,
   get_UserByEmail,
-  updateUserRoleTo,
+  updateUserRoleToAdmin,
   get_UserById,
 } from "../controller/user-controller/index";
-import { isAdmin, isAuthenticated, isOwner } from "../middleware";
+import {
+  isAdmin,
+  isAuthenticated,
+  isOwner,
+  isVerified,
+} from "../middleware";
 
 export default (router: express.Router) => {
   // endpoint , middleware, route handler function
@@ -17,9 +22,16 @@ export default (router: express.Router) => {
   router.delete("/users/:id", isAuthenticated, isOwner, deleteUser);
   router.put("/users/:id", isAuthenticated, isOwner, updateUser);
   router.put(
-    "/users/role/:id",
+    "/users/role/admin/:id",
     isAuthenticated,
     isAdmin,
-    updateUserRoleTo
+    updateUserRoleToAdmin
+  );
+  router.put(
+    "/users/:id/:code",
+    isAuthenticated,
+    isOwner,
+    isVerified,
+    updateUser
   );
 };

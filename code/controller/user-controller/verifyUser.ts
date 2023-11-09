@@ -7,6 +7,8 @@ export const verifyUser = async (
   userId: string
 ) => {
   const user = await getUserById(userId);
+  const now = new Date().toISOString();
+  user.verification.timestamp.push(`Code reset on: ${now}`);
   if (verificationCode != user.verification.randomSeed) {
     if (user.verification.failCount < 3) {
       user.verification.failCount += 1;
@@ -15,9 +17,11 @@ export const verifyUser = async (
         Math.random() * (999999 - 100000) + 1
       ).toString();
     }
+    user.save();
     return "Incorrect code. Try again";
   } else {
     user.verification.verified = true;
+    user.save();
     return "Successful!";
   }
 };

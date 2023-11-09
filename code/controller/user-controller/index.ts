@@ -5,7 +5,7 @@ import { getAllUsers } from "./getAllUsers";
 import { get_UserByEmail } from "./getUserByEmail";
 import { get_UserById } from "./getUserById";
 import { updateUser } from "./updateUser";
-import { updateUserRoleTo } from "./updateUserRoleTo";
+import { updateUserRoleToAdmin } from "./updateUserRoleToAdmin";
 import { verifyUser } from "./verifyUser";
 
 export {
@@ -16,6 +16,6 @@ export {
   get_UserByEmail,
   get_UserById,
   updateUser,
-  updateUserRoleTo,
+  updateUserRoleToAdmin,
   verifyUser,
 };

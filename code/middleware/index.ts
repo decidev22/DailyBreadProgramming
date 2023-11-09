@@ -156,16 +156,6 @@ export const isAdmin = async (
   next();
 };
 
-// // Blog isTrending
-
-// export const isTrending = async (
-//   req: express.Request,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) => {
-
-// };
-
 export const isVerified = async (
   req: express.Request,
   res: express.Response,
@@ -178,14 +168,19 @@ export const isVerified = async (
   }
   const existingUser = await getUserBySessionToken(sessionToken);
   const verificayionCode = req.params.code as string;
-  console.log("Code provided by user", verificayionCode);
-  console.log("Code on System", existingUser.verification.randomSeed);
 
   if (verificayionCode == existingUser.verification.randomSeed) {
     console.log("Verification Successful");
+
     existingUser.verification.verified = true;
+    // Successfully provided the code, hence, reset fail counter
     existingUser.verification.failCount = 0;
+    // Reset the verification code
+    existingUser.verification.randomSeed = Math.floor(
+      Math.random() * (999999 - 100000) + 1
+    ).toString();
     existingUser.save();
+
     next();
   } else {
     // if user gets code wrong 3 times, reset the fail count and recreate the code.

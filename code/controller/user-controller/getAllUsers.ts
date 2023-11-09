@@ -10,9 +10,14 @@ export const getAllUsers = async (
 
     // This section of the code was used to initialise viewBlogHistory
     // for (let i = 0; i < users.length; i++) {
-    //   if (!users[i].viewedBlogHistory) {
-    //     users[i].viewedBlogHistory.blogids = [];
+    //   if (!users[i].verification.randomSeed) {
+    //     users[i].verification.randomSeed = Math.floor(
+    //       Math.random() * (999999 - 100000) + 1
+    //     ).toString();
     //   }
+    //   users[i].verification.verified = false;
+    //   users[i].verification.failCount = 0;
+    //   users[i].verification.timestamp = [];
     // }
 
     return res.status(200).json(users);

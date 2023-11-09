@@ -1,7 +1,7 @@
 import express from "express";
 import { getUserBySessionToken } from "./getUserBySessionToken";
 
-const getCurrentUser = async (
+export const getCurrentUser = async (
   req: express.Request,
   res: express.Response
 ) => {
@@ -13,5 +13,3 @@ const getCurrentUser = async (
 
   return await getUserBySessionToken(sessionToken);
 };
-
-export default getCurrentUser;

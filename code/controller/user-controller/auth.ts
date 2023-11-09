@@ -5,6 +5,7 @@ import { getUserByEmail } from "../../api/user-api/getUserByEmail";
 import { createUser } from "../../api/user-api/createUser";
 import { random, authentication } from "../../helpers";
 import { verifyUserEmail } from "../../api/user-api/sendUserEmailVerification";
+import { createNewVerification } from "../../api/user-api/createNewVerification";
 
 export const register = async (
   req: express.Request,
@@ -39,9 +40,12 @@ export const register = async (
 
     // this random seed will later be sent to user by email and compared by user input on dashboard and only valid for 5 minutes.
     // if user fails to enter the correct number 3 times, random_seed resets.
-    const random_seed = Math.floor(
-      Math.random() * (999999 - 100000) + 1
-    );
+    // const random_seed = Math.floor(
+    //   Math.random() * (999999 - 100000) + 1
+    // );
+    const random_seed = createNewVerification(existingUser);
+    console.log(random_seed);
+
     // salt random and random seed is separated.
     const salt = random();
     const role = "member";

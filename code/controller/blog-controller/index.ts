@@ -8,6 +8,8 @@ import { get_BlogById } from "./getBlogById";
 import { getPopularBlog } from "./getPopularBlog";
 import { updateBlog } from "./updateBlog";
 import { getAllBlogsByUserId } from "./getAllBlogsByUserId";
+import { get_AllTrendingBlog } from "./get_AllTrendingBlog";
+import { addNewCommentToBlog } from "./addNewCommentToBlog";
 
 export {
   createNewBlog,
@@ -20,4 +22,6 @@ export {
   getPopularBlog,
   updateBlog,
   getAllBlogsByUserId,
+  get_AllTrendingBlog,
+  addNewCommentToBlog,
 };

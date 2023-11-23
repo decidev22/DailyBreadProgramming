@@ -46,6 +46,15 @@ const UserSchema = new mongoose.Schema({
   popularBlogsWritten: {
     blogids: [String],
   },
+  myComments: {
+    records: [
+      {
+        blogId: String,
+        comment: String,
+        time: Date,
+      },
+    ],
+  },
 });
 
 export const UserModel = mongoose.model("User", UserSchema);

@@ -1,6 +1,7 @@
 import { getBlogTrendById } from "../../../api/trending-api/getBlogTrendById";
 import { getUserById } from "../../../api/user-api/getUserById";
 import { newBlogTrend } from "../../../api/trending-api/newBlogTrend";
+import { title } from "process";
 
 type BlogType = {
   title: string;
@@ -19,12 +20,14 @@ type BlogType = {
 export const isTrending = async (blogs: BlogType, id: string) => {
   const now = new Date();
   const date = now.toISOString();
+  const content = blogs.content;
+  const title = blogs.title;
 
   // clean the access record if there are any empty date
   for (let item in blogs.recentAccess) {
     if (item == " ") {
       const indexOfEmptyItem = blogs.recentAccess.indexOf(item);
-      console.log(indexOfEmptyItem);
+      // console.log(indexOfEmptyItem);
       if (indexOfEmptyItem !== -1) {
         blogs.recentAccess.splice(indexOfEmptyItem, 1);
       }
@@ -65,7 +68,12 @@ export const isTrending = async (blogs: BlogType, id: string) => {
       const blogTrend = await getBlogTrendById(id);
       // check if the blog is already recorded, or if the search returns an empty array.
       if (!blogTrend || blogTrend.length === 0) {
-        await newBlogTrend({ blogId: id, time: now });
+        await newBlogTrend({
+          blogId: id,
+          time: now,
+          title: title,
+          content: content,
+        });
       } else {
         //check if the last trend date was more than 1 week ago.
         const now = new Date().getTime();

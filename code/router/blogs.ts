@@ -10,6 +10,8 @@ import {
   getPopularBlog,
   updateBlog,
   getAllBlogsByUserId,
+  get_AllTrendingBlog,
+  addNewCommentToBlog,
 } from "../controller/blog-controller/index";
 
 import {
@@ -25,6 +27,8 @@ export default (router: express.Router) => {
     isNotSpam,
     createNewBlog
   );
+
+  router.post("/blogs/:id/comment", addNewCommentToBlog);
   router.post("/blogs/favorite/:id", addFavoriteBlog);
   router.get("/blogs/userid/:id", getAllBlogsByUserId);
   router.get("/blogs", getBlog);
@@ -32,6 +36,7 @@ export default (router: express.Router) => {
   router.get("/blogs/hashtag", getAllBlogByHashTag);
   router.get("/blogs/category", getAllBlogByCategory);
   router.get("/blogs/popular", getPopularBlog);
+  router.get("/blogs/trending", get_AllTrendingBlog);
   router.get("/blogs/:id", isAuthenticated, get_BlogById);
   router.delete(
     "/blogs/:id",

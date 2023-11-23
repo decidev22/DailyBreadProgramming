@@ -6,6 +6,7 @@ import { createUser } from "../../api/user-api/createUser";
 import { random, authentication } from "../../helpers";
 import { verifyUserEmail } from "../../api/user-api/sendUserEmailVerification";
 import { createNewVerification } from "../../api/user-api/createNewVerification";
+import { getUserByUsername } from "../../api/user-api/getUserByUsername";
 
 export const register = async (
   req: express.Request,
@@ -20,6 +21,16 @@ export const register = async (
         "Error. One or more of email, password, username is/are NOT passed correctly."
       );
       return res.sendStatus(400);
+    }
+
+    // Confirm if the username exists
+
+    const userCheck = await getUserByUsername(username);
+    // console.log(userCheck);
+    // if null, then username does not exist yet.
+    if (userCheck != null) {
+      console.log("End here");
+      return res.status(400).send("Username already exists");
     }
 
     // check if email is in the right format

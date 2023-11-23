@@ -7,13 +7,9 @@ import {
   updateUserRoleToAdmin,
   get_UserById,
   resetVerificationById,
+  verifyUser,
 } from "../controller/user-controller/index";
-import {
-  isAdmin,
-  isAuthenticated,
-  isOwner,
-  isVerified,
-} from "../middleware";
+import { isAdmin, isAuthenticated, isOwner } from "../middleware";
 
 export default (router: express.Router) => {
   // endpoint , middleware, route handler function
@@ -34,11 +30,10 @@ export default (router: express.Router) => {
     isAdmin,
     updateUserRoleToAdmin
   );
-  router.put(
-    "/users/:id/:code",
+  router.patch(
+    "/users/:id/verify/:code",
     isAuthenticated,
     isOwner,
-    isVerified,
-    updateUser
+    verifyUser
   );
 };

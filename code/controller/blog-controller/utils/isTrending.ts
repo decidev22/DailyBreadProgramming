@@ -1,7 +1,6 @@
 import { getBlogTrendById } from "../../../api/trending-api/getBlogTrendById";
 import { getUserById } from "../../../api/user-api/getUserById";
 import { newBlogTrend } from "../../../api/trending-api/newBlogTrend";
-import { title } from "process";
 
 type BlogType = {
   title: string;
